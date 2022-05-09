@@ -83,8 +83,7 @@ Route::get('/redirection',[UserController::class,'Redirection'])->name('Redirect
 
 Route::post('/login',[UserController::class,'Authenticate'])->name('Authenticate');
 
-Route::get('/deconnexion',[UserController::class,'Logout'])->name('Logout')
-->middleware('auth');
+Route::get('/deconnexion',[UserController::class,'Logout'])->name('Logout');
 
 
 Route::get('/update',[UserController::class,'GETPAGEUPDATEINFORMATION'])->name('GETPAGEUPDATEINFORMATION')

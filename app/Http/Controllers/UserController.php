@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
+
 use App\Models\User;
 use App\Models\Client;
 use App\Models\Boutique;
@@ -18,6 +20,11 @@ use App\Models\Paiement;
 
 class UserController extends Controller
 {
+    
+    public function __invoke()
+    {
+        
+    } 
     //
 
     public function getdash()
@@ -26,12 +33,40 @@ class UserController extends Controller
         $nombredeboutique = Boutique::All();
         $nombredemois= Mois::All();
         $nombrepaiement= Paiement::All();
+        $prixtotalpaiement = Paiement::sum('prixp');
+        $sommepaiementjanvier = Paiement::where('mois_id',1)->sum('prixp');
+        $sommepaiementfevrier = Paiement::where('mois_id',2)->sum('prixp');
+        $sommepaiementmars = Paiement::where('mois_id',3)->sum('prixp');
+        $sommepaiementavril = Paiement::where('mois_id',4)->sum('prixp');
+        $sommepaiementmai =Paiement::where('mois_id',5)->sum('prixp');
+        $sommepaiementjuin =Paiement::where('mois_id',6)->sum('prixp');
+        $sommepaiementjuillet = Paiement::where('mois_id',7)->sum('prixp');
+        $sommepaiementaout = Paiement::where('mois_id',8)->sum('prixp');
+        $sommepaiementseptembre = Paiement::where('mois_id',9)->sum('prixp');
+        $sommepaiementoctobre = Paiement::where('mois_id',10)->sum('prixp');
+        $sommepaiementnovembre = Paiement::where('mois_id',11)->sum('prixp');
+        $sommepaiementdecembre= Paiement::where('mois_id',12)->sum('prixp');
+
+
 
         return view('user.dash',[
             'nombredeclient'=>$nombredeclient,
             'nombredeboutique'=>$nombredeboutique,
             'nombredemois'=>$nombredemois,
-            'nombrepaiement'=>$nombrepaiement   
+            'nombrepaiement'=>$nombrepaiement,
+            'sommepaiementjanvier'=>$sommepaiementjanvier,
+            'sommepaiementfevrier'=>$sommepaiementfevrier,
+            'sommepaiementmars'=>$sommepaiementmars,
+            'sommepaiementavril'=>$sommepaiementavril,
+            'sommepaiementmai'=>$sommepaiementmai,
+            'sommepaiementjuin'=>$sommepaiementjuin,
+            'sommepaiementjuillet'=>$sommepaiementjuillet,
+            'sommepaiementaout'=>$sommepaiementaout,
+            'sommepaiementseptembre'=>$sommepaiementseptembre,
+            'sommepaiementoctobre'=>$sommepaiementoctobre,
+            'sommepaiementnovembre'=>$sommepaiementnovembre,
+            'sommepaiementdecembre'=>$sommepaiementdecembre,
+            'prixtotalpaiement'=>$prixtotalpaiement
 
         ]
 

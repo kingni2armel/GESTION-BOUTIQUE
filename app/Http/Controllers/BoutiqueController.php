@@ -54,11 +54,12 @@ class BoutiqueController extends Controller
         $infoboutique = DB::table('clients')
         ->join('boutiques','clients.id','=','boutiques.client_id')
         ->join('utilisateurs','utilisateurs.id','clients.user_id')
-        ->select('utilisateurs.nom','utilisateurs.prenom','clients.id','boutiques.prix','boutiques.numero_boutique')
+        ->select('utilisateurs.nom','utilisateurs.prenom','clients.id','boutiques.prix','boutiques.id','boutiques.numero_boutique')
         ->get();
 
      //   die($infoboutique);
-        return view('boutique.listeboutique',['infoboutique'=>$infoboutique,
+        return view('boutique.listeboutique',[
+        'infoboutique'=>$infoboutique,
         'numero'=>$numero
        
     ]);
@@ -71,7 +72,9 @@ class BoutiqueController extends Controller
 
     {
             $id = $_GET['id'];
-            $boutique = Boutique::where('id',$id)->select('boutiques.*')->get();
+            $boutique = Boutique::where('id',$id)
+            ->select('boutiques.*')->get();
+           // die($boutique);
             return view('boutique.updateboutique',[
                 'boutique'=>$boutique
             ]);

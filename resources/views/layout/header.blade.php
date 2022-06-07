@@ -17,7 +17,7 @@
                 </div>
                 <div class="profile-name">
                   <h5 class="mb-0 font-weight-normal">{{auth()->user()->nom}}</h5>
-                  <span>administrateur</span>
+                  <span>{{auth()->user()->role}}</span>
                 </div>
               </div>
               <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
@@ -41,39 +41,112 @@
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
+            @if (auth()->user()->role === 'admin' || auth()->user()->role === 'superviseur')
+
+                          <li class="nav-item menu-items">
+                            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                              <span class="menu-icon">
+                                <i class="mdi mdi-laptop"></i>
+                              </span>
+                              <span class="menu-title">Boutique</span>
+                              <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="ui-basic">
+                              <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="{{route('GETPAGECREATEBOUTIQUE')}}">Creer boutique</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('GETLISTEBOUTIQUE')}}">Liste boutique</a></li>
+                              </ul>
+                            </div>
+                          </li>
+
+                          <li class="nav-item menu-items">
+                            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                              <span class="menu-icon">
+                                <i class="mdi mdi-laptop"></i>
+                              </span>
+                              <span class="menu-title">Client</span>
+                              <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="ui-basic">
+                              <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="{{route('GETPAGECREATECLIENT')}}">Creer client</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('GETPAGELISTECLIENT')}}">Liste client</a></li>
+                              </ul>
+                            </div>
+                          </li>
+
+                        
+                
+            @endif
+
+            @if (auth()->user()->role==='admin')
+                  <li class="nav-item menu-items">
+                    <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                      <span class="menu-icon">
+                        <i class="mdi mdi-laptop"></i>
+                      </span>
+                      <span class="menu-title">Utilisateur</span>
+                      <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="ui-basic">
+                      <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{{route('GETPAGEADDUSER')}}">Creer</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="../../pages/ui-features/dropdowns.html">Liste</a></li>
+
+                      </ul>
+                    </div>
+                  </li>
+      
+            @endif
+
+            @if (auth()->user()->role==='client')
+            <li class="nav-item menu-items">
+              <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-icon">
+                  <i class="mdi mdi-laptop"></i>
+                </span>
+                <span class="menu-title">Mes paiements</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="{{route('GETLISTEPAIEMENTBYCLIENT')}}">Liste</a></li>
+
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item menu-items">
+              <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-icon">
+                  <i class="mdi mdi-setting"></i>
+                </span>
+                <span class="menu-title">Evenements</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="{{route('GETPAGEADDMESSAGE')}}">Envoyer un message</a></li>
+                </ul>
+              </div>
+            </li>
+
+      @endif
+
 
           <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <span class="menu-icon">
-                <i class="mdi mdi-laptop"></i>
+                <i class="mdi mdi-setting"></i>
               </span>
-              <span class="menu-title">Boutique</span>
+              <span class="menu-title">Mes messages</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{{route('GETPAGECREATEBOUTIQUE')}}">Creer boutique</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{{route('GETLISTEBOUTIQUE')}}">Liste boutique</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{route('GETLISTEMESSAGE')}}">Liste</a></li>
               </ul>
             </div>
           </li>
-
-          <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <span class="menu-icon">
-                <i class="mdi mdi-laptop"></i>
-              </span>
-              <span class="menu-title">Client</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{{route('GETPAGECREATECLIENT')}}">Creer client</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{{route('GETPAGELISTECLIENT')}}">Liste client</a></li>
-              </ul>
-            </div>
-          </li>
-
 
 
           <li class="nav-item menu-items">

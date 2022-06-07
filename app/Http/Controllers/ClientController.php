@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Utilisateur;
 use App\Models\Client;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -33,11 +32,12 @@ class ClientController extends Controller
                 'password'=>['required']
             ]);
 
-            $user = Utilisateur::create([
+            $user = User::create([
                 'nom'=>$request->nom,
                 'prenom'=>$request->prenom,
                 'email'=>$request->email,
                 'numero_telephone'=>$request->phone,
+                'role'=>'client',
                 'password'=>Hash::make($request->password),
             ]);
         
@@ -59,14 +59,18 @@ class ClientController extends Controller
     {
         $numero = 1;
         $nombreclient = Client::paginate(7);
-        $infoclient = DB::table('utilisateurs')
-        ->join('clients','utilisateurs.id','=','clients.user_id')
-        ->select('utilisateurs.nom','utilisateurs.prenom','utilisateurs.email','utilisateurs.numero_telephone','clients.id')
+        $infoclient = DB::table('users')
+        ->join('clients','users.id','=','clients.user_id')
+        ->select('users.nom','users.prenom','users.email','users.numero_telephone','clients.id')
         ->get();
-        return view('client.listeclient',
-        ['infoclient'=>$infoclient,
-        'nombreclient'=>$nombreclient,
-        'numero'=>$numero
+
+        dd($infoclient);
+
+        return view('client.listeclient', [
+
+                'infoclient'=>$infoclient,
+                'nombreclient'=>$nombreclient,
+                'numero'=>$numero
     
     
     ]);
@@ -78,11 +82,13 @@ class ClientController extends Controller
     
     {
         $id = $_GET['id'];
-        $infoclient = DB::table('utilisateurs')
-        ->join('clients','utilisateurs.id','=','clients.user_id')
-        ->select('utilisateurs.nom','utilisateurs.prenom','utilisateurs.email','utilisateurs.numero_telephone','clients.id','clients.user_id')
+        $infoclient = DB::table('users')
+        ->join('clients','users.id','=','clients.user_id')
+        ->select('users.nom','users.prenom','users.email','users.numero_telephone','clients.id','clients.user_id')
         ->where('clients.id',$id)
         ->get();
+
+        
 
         return view('client.updateclient',[
 
@@ -103,11 +109,12 @@ class ClientController extends Controller
                 'prenomupdate'=>['required'],
                 'emailupdate'=>['required'],
                 'phoneupdate'=>['required'],
+                
                 'passwordupdate'=>['required']
             ]);
 
              $client = Client::find($id);
-             $user = Utilisateur::find($idu);
+             $user = User::find($idu);
 
             $user->update([
                 'nom'=>$request->nomupdate,
@@ -123,6 +130,33 @@ class ClientController extends Controller
             return redirect()->route('GETPAGELISTECLIENT');
 
 
+    }
+
+    /*** function qui permet de renvoyer la liste des  paiement d'un client */
+
+    public function   GETLISTEPAIEMENTBYCLIENT()
+
+    {
+
+        $iduser = auth()->user()->id;
+        $row = 1;
+        $clientid =  Client::where('clients.user_id',$iduser)->get();
+        $client = $clientid->first();
+        $datId =  $client->id;
+
+        $listepaiement = DB::table('clients')
+        ->join('paiements','clients.id','=','paiements.client_id')
+        ->join('boutiques','paiements.boutique_id','=','boutiques.id')
+        ->join('mois','paiements.mois_id','=','mois.id')
+        ->select('paiements.prixp','boutiques.numero_boutique','boutiques.prix','mois.nom_mois')
+        ->where('paiements.client_id',$datId)
+        ->get();
+      
+      //  die($listepaiement);
+        return view('client.mespaiement',[
+            'row'=>$row,
+            'listepaiement'=>$listepaiement
+        ]);
     }
 
     /** function qui permet de supprimer un client */

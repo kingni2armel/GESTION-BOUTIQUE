@@ -113,7 +113,10 @@
 .buton{
   background-color: #212529; border:none
 }
-
+.but-delete{
+  border:none;
+   background-color: #212529
+}
 @-moz-keyframes flash {
   0% {
     opacity: 1; }

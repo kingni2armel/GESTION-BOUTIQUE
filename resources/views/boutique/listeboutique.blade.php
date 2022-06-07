@@ -54,7 +54,13 @@
                                                             <td>
                                                                     <div class="parent">
                                                                         <div class="col-sm-6 col-md-4 col-lg-3">
-                                                                            <i  style="color:red"class="mdi mdi-delete-forever"></i> 
+
+                                                                              <form action="{{route('DELETEBOUTIQUE',['id'=>$infoboutiques->id])}}" method="post">
+                                                                                @csrf
+                                                                                  <button class="but-delete"type="submit">  
+                                                                                      <i  style="color:red"class="mdi mdi-delete-forever"></i> 
+                                                                                  </button>
+                                                                              </form>
                                                                           </div>
         
                                                                           <div class="col-sm-6 col-md-4 col-lg-3">

@@ -6,6 +6,8 @@ use App\Http\Controllers\BoutiqueController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PaiementController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MessageController;
+
 
 
 
@@ -28,6 +30,14 @@ Route::get('/dashboard',[UserController::class,'getdash'])->name('getdash')
 ->middleware('auth');
 
 
+/**** les routes de user */
+Route::get('adduser',[UserController::class,'GETPAGEADDUSER'])->name('GETPAGEADDUSER')
+->middleware('auth');
+
+Route::post('adduser',[UserController::class,'ADDUSER'])->name('ADDUSER')
+->middleware('auth');
+
+
 Route::get('/ajouter',[BoutiqueController::class,'GETPAGECREATEBOUTIQUE'])->name('GETPAGECREATEBOUTIQUE')
 ->middleware('auth');
 Route::post('/ajouter',[BoutiqueController::class,'CREATEBOUTIQUE'])->name('CREATEBOUTIQUE')
@@ -37,6 +47,9 @@ Route::get('/listeboutique',[BoutiqueController::class,'GETLISTEBOUTIQUE'])->nam
 Route::get('/modifierboutique',[BoutiqueController::class,'GETPAGEUPDATEBOUTIQUE'])->name('GETPAGEUPDATEBOUTIQUE')
 ->middleware('auth');
 Route::post('modifierboutique/{id}',[BoutiqueController::class,'UPDATEBOUTIQUE'])->name('UPDATEBOUTIQUE')
+->middleware('auth');
+
+Route::post('deleteboutique/{id}',[BoutiqueController::class,'DELETEBOUTIQUE'])->name('DELETEBOUTIQUE')
 ->middleware('auth');
 
 
@@ -55,6 +68,8 @@ Route::get('modifier',[ClientController::class,'GETPAGEUPDATE'])->name('GETPAGEU
 Route::post('modifier/{id}/{idu}',[ClientController::class,'UPDATECLIENT'])->name('UPDATECLIENT')
 ->middleware('auth');
 
+Route::get('liste-paiement',[ClientController::class,'GETLISTEPAIEMENTBYCLIENT'])->name('GETLISTEPAIEMENTBYCLIENT')
+->middleware('auth');
 
 /*** les controlleurs de paiement */
 
@@ -89,4 +104,17 @@ Route::get('/deconnexion',[UserController::class,'Logout'])->name('Logout');
 Route::get('/update',[UserController::class,'GETPAGEUPDATEINFORMATION'])->name('GETPAGEUPDATEINFORMATION')
 ->middleware('auth');
 Route::post('/updates',[UserController::class,'UpdateUser'])->name('UpdateUser')
+->middleware('auth');
+
+
+
+Route::get('add-message',[MessageController::class,'GETPAGEADDMESSAGE'])->name('GETPAGEADDMESSAGE')
+->middleware('auth');
+Route::get('repondre-message',[MessageController::class,'GETPAGEREPONDREMESSAGE'])->name('GETPAGEREPONDREMESSAGE')
+->middleware('auth');
+Route::get('list-message',[MessageController::class,'GETLISTEMESSAGE'])->name('GETLISTEMESSAGE')
+->middleware('auth');
+Route::post('add-message',[MessageController::class,'SENDMESSAGE'])->name('SENDMESSAGE')
+->middleware('auth');
+Route::post('repondre-message/{id}',[MessageController::class,'REPONDREMESSAGE'])->name('REPONDREMESSAGE')
 ->middleware('auth');

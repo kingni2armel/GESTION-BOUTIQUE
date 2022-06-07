@@ -15,9 +15,9 @@ class BoutiqueController extends Controller
     //
     public function GETPAGECREATEBOUTIQUE()
     {
-        $infoclient = DB::table('utilisateurs')
-        ->join('clients','utilisateurs.id','=','clients.user_id')
-        ->select('utilisateurs.nom','utilisateurs.prenom','clients.id')
+        $infoclient = DB::table('users')
+        ->join('clients','users.id','=','clients.user_id')
+        ->select('users.nom','users.prenom','clients.id')
         ->get();
         return view('boutique.addboutique',
         ['infoclient'=>$infoclient]
@@ -104,5 +104,19 @@ class BoutiqueController extends Controller
             session()->flash('notification.type','success');
 
             return redirect()->route('GETLISTEBOUTIQUE');
+    }
+
+    /*** function qui permet de supprimer une boutique */
+
+
+    public function DELETEBOUTIQUE(Request $request,$id)
+
+    {
+        $boutique = Boutique::find($id);
+        $boutique->delete();
+        session()->flash('notification.message','Boutique supprimé avec success');
+        session()->flash('notification.type','danger');
+        return redirect()->route('GETLISTEBOUTIQUE');
+
     }
 }

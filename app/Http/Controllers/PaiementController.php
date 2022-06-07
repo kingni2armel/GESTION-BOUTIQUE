@@ -28,9 +28,9 @@ class PaiementController extends Controller
         ->select('boutiques.*')
         ->where('clients.id',$id)
         ->get();
-        $client = DB::table('utilisateurs')
-        ->join('clients','utilisateurs.id','=','clients.user_id')
-        ->select('utilisateurs.nom','utilisateurs.prenom','clients.id')
+        $client = DB::table('users')
+        ->join('clients','users.id','=','clients.user_id')
+        ->select('users.nom','users.prenom','clients.id')
         ->where('clients.id',$id)
         ->get();
         
@@ -50,9 +50,9 @@ class PaiementController extends Controller
     {
         $numero = 1;
         $nombreclient = Client::paginate(7);
-        $infoclient = DB::table('utilisateurs')
-        ->join('clients','utilisateurs.id','=','clients.user_id')
-        ->select('utilisateurs.nom','utilisateurs.prenom','utilisateurs.email','utilisateurs.numero_telephone','clients.id')
+        $infoclient = DB::table('users')
+        ->join('clients','users.id','=','clients.user_id')
+        ->select('users.nom','users.prenom','users.email','users.numero_telephone','clients.id')
         ->get();
         return view('client.listeclient',
         ['infoclient'=>$infoclient,

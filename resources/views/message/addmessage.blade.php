@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CREER CLIENT</title>
+    <title>CREER UTILISATEUR</title>
 </head>
 <body>
         @include('layout.header')
@@ -15,7 +15,7 @@
                     <div class="col-12 grid-margin stretch-card">
                         <div class="card">
                           <div class="card-body">
-                            <h4 class="card-title">Creer un client</h4>
+                            <h4 class="card-title">Envoyer un message</h4>
                             @if($errors->any())
                                 {
                                     <div class="alert alert-danger">
@@ -39,36 +39,39 @@
 
 
 
-                            <form class="forms-sample" action="{{route('CREATECLIENT')}}" method="POST">
+                            <form class="forms-sample" action="{{route('GETPAGEADDMESSAGE')}}" method="POST">
 
                               @csrf
 
                               <div class="form-group">
-                                <label for="exampleInputName1">Nom</label>
-                                <input type="text" name="nom" class="form-control" id="exampleInputName1" placeholder="Entrer le nom">
-                              </div>
-                              <div class="form-group">
-                                <label for="exampleInputEmail3">Prenom</label>
-                                <input type="prenom" name="prenom" class="form-control" id="exampleInputEmail3" placeholder="Entrer le prenom">
+                                <label for="exampleInputName1">Mon message</label>
+
+                                <textarea name="message" id="" class="form-control" cols="30" rows="10"></textarea>
+
+ 
                               </div>
 
                               <div class="form-group">
-                                <label for="exampleInputEmail3">Email</label>
-                                <input type="email" name="email" class="form-control" id="exampleInputEmail3" placeholder="Entrer l'email">
-                              </div>
 
-                              <div class="form-group">
-                                <label for="exampleInputEmail3">Numero de telephone</label>
-                                <input type="number" name="phone" class="form-control" id="exampleInputEmail3" placeholder="Entrer le numero de telephone">
+                                    <label for="">Destinataire</label>
+                                    <select name="destinataire" class="form-control" id="">
+
+                                        @foreach ($user as $data)
+
+                                            <option value="{{$data->id}}">{{$data->nom}} {{$data->prenom}}</option>
+                                            
+                                        @endforeach
+                            </select>
+
                               </div>
+                             
 
 
-                              <div class="form-group">
-                                <label for="exampleInputPassword4">Password</label>
-                                <input type="password" name="password" class="form-control" id="exampleInputPassword4" placeholder="Password">
-                              </div>
+
+
+                             
                            
-                              <button type="submit" class="btn btn-primary mr-2">Creer</button>
+                              <button type="submit" class="btn btn-primary mr-2">Envoyer </button>
                               <button class="btn btn-dark">Cancel</button>
                             </form>
                           </div>

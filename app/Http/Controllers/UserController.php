@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
-
 use App\Models\User;
 use App\Models\Client;
 use App\Models\Boutique;
@@ -46,9 +45,6 @@ class UserController extends Controller
         $sommepaiementoctobre = Paiement::where('mois_id',10)->sum('prixp');
         $sommepaiementnovembre = Paiement::where('mois_id',11)->sum('prixp');
         $sommepaiementdecembre= Paiement::where('mois_id',12)->sum('prixp');
-
-
-
         return view('user.dash',[
             'nombredeclient'=>$nombredeclient,
             'nombredeboutique'=>$nombredeboutique,
@@ -127,6 +123,49 @@ class UserController extends Controller
                     return redirect()->route('GOCONNECT');
         }
 
+        /**** function qui permet de creer un utilisateur (client, admin, superviseur) */
+
+
+        public function GETPAGEADDUSER()
+        
+        {
+                    return view('user.adduser');
+        }
+
+        /**** function qui permet de creer unn user */
+
+
+        public function ADDUSER(Request $request)
+
+        {
+                $request->validate([
+                    'nom'=>['required'],
+                    'prenom'=>['required'],
+                    'email'=>['required'],
+                    'phone'=>['required'],
+                    'password'=>['required']
+                ]);
+              $user=  User::create([
+                        'nom'=>$request->nom,
+                        'prenom'=>$request->prenom,
+                        'email'=>$request->email,
+                        'numero_telephone'=>$request->phone,
+                        'role'=>$request->role,
+                        'password'=>Hash::make($request->password),
+                ]);
+
+                if($request->role==='client')
+
+                {
+                    Client::create([
+                        'user_id'=>$user->id
+                    ]);
+                }
+
+                session()->flash('notification.message','utilisateur creé avec success');
+                session()->flash('notification.type','success');
+                return redirect()->route('GETPAGEADDUSER');
+        }
         /** function qui permet de renvoyer a la page de modification des informations */
 
 

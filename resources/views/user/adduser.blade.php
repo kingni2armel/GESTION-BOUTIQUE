@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CREER CLIENT</title>
+    <title>CREER UTILISATEUR</title>
 </head>
 <body>
         @include('layout.header')
@@ -15,7 +15,7 @@
                     <div class="col-12 grid-margin stretch-card">
                         <div class="card">
                           <div class="card-body">
-                            <h4 class="card-title">Creer un client</h4>
+                            <h4 class="card-title">Creer un utilisateur</h4>
                             @if($errors->any())
                                 {
                                     <div class="alert alert-danger">
@@ -39,7 +39,7 @@
 
 
 
-                            <form class="forms-sample" action="{{route('CREATECLIENT')}}" method="POST">
+                            <form class="forms-sample" action="{{route('ADDUSER')}}" method="POST">
 
                               @csrf
 
@@ -61,6 +61,19 @@
                                 <label for="exampleInputEmail3">Numero de telephone</label>
                                 <input type="number" name="phone" class="form-control" id="exampleInputEmail3" placeholder="Entrer le numero de telephone">
                               </div>
+
+                              <div class="form-group">
+                                <label for="exampleInputEmail3">Role</label>
+
+
+                                        <select name="role"  class="form-control" id="">
+
+                                                    <option value="client">Client</option>
+                                                    <option value="superviseur">Superviseur</option>
+                                                    <option value="admin">Admin</option>
+                                        </select>
+                              </div>
+
 
 
                               <div class="form-group">

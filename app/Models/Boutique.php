@@ -12,6 +12,7 @@ class Boutique extends Model
     protected $fillable =  [
         'client_id',
         'prix',
-        'numero_boutique'
+        'numero_boutique',
+        'statut_boutique'
     ];
 }

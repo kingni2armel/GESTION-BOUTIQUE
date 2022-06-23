@@ -33,6 +33,7 @@
                                         <th> Prix de la boutique</th>
                                         <th> Somme verse </th>
                                         <th> Mois </th>
+                                         <th>Operation</th>
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -50,8 +51,20 @@
 
                                                         
                                                             <td>{{$data->nom_mois}}</td>
+                                                            <td>
+                                                                    <div class="parent">
+                                                                          <div class="parent_item">
+                                                                                        
+                                                                          <div class="col-sm-6 col-md-4 col-lg-3">
+                                                                                      <a href="{{route('GETPAGEIMPRIMERRECU',['id'=>$data->id])}}"> <i  title="Imprimer le recu" style =" color:green"class="mdi mdi-marker"></i> </a>
+                                                                        
+                                                                           </div> 
+                                                                          
+                                                                           </div>  
+                                                                    </div>   
+                                                            </td>
 
-                                                     
+                                                          
                                                     </tr>
                                                 @endforeach
                                     </tbody>
@@ -68,8 +81,6 @@
         </div>
     </div>
 
-    <style>
-       
-    </style>
+
 </body>
 </html>

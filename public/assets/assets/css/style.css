@@ -110,6 +110,13 @@
 .parent{
   display: flex;
 }
+.parentss{
+  display: flex !important;
+  justify-content: space-between ;
+}
+.imp{
+  font-size: 18px;
+}
 .buton{
   background-color: #212529; border:none
 }

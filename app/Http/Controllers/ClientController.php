@@ -42,7 +42,8 @@ class ClientController extends Controller
             ]);
         
             $client = Client::create([
-                'user_id'=>$user->id
+                'user_id'=>$user->id,
+                'statut_client'=>1
             ]);
 
             session()->flash('notification.message','Client crée avec success');
@@ -148,7 +149,7 @@ class ClientController extends Controller
         ->join('paiements','clients.id','=','paiements.client_id')
         ->join('boutiques','paiements.boutique_id','=','boutiques.id')
         ->join('mois','paiements.mois_id','=','mois.id')
-        ->select('paiements.prixp','boutiques.numero_boutique','boutiques.prix','mois.nom_mois')
+        ->select('paiements.id','paiements.prixp','boutiques.numero_boutique','boutiques.prix','mois.nom_mois')
         ->where('paiements.client_id',$datId)
         ->get();
       
@@ -164,9 +165,44 @@ class ClientController extends Controller
     public function DELETECLIENT(Request $request,$id)
     {
             $client = Client::find($id);
-            $client->delete();
-            session()->flash('notification.message','Client supprimé avec success');
+            
+            $client->update([
+                'statut_client'=>0
+            ]);
+            session()->flash('notification.message','Client Désactivé avec success');
             session()->flash('notification.type','danger');
             return redirect()->route('GETPAGELISTECLIENT');
     }
+
+    /*** fcuntion qui permet a un client de pouvoir imprimer son recu */
+
+    public function GETPAGEIMPRIMERRECU()
+
+    {
+            $idpaiement =  $_GET['id'];
+
+            $informationspaiement = DB::table('users')
+            ->join('clients','users.id','=','clients.user_id')
+            ->join('paiements','clients.id','=','paiements.client_id')
+            ->join('mois','paiements.mois_id','=','mois.id')
+            ->join('boutiques','paiements.boutique_id','=','boutiques.id')
+            ->select(
+                    'boutiques.prix',
+                    'boutiques.numero_boutique',
+                    'users.nom',
+                    'users.prenom',
+                    'users.email',
+                    'users.numero_telephone',
+                    'paiements.prixp',
+                    'paiements.date',
+                    'mois.nom_mois'
+            )
+            ->where('paiements.id',$idpaiement)
+            ->get();
+            //die($informationspaiement);
+            return view('client.imprimer',[
+                'informationspaiement'=>$informationspaiement
+            ]);
+    }
+
 }

@@ -21,6 +21,8 @@ class CreateBoutiquesTable extends Migration
             ->onUpdate('cascade');
             $table->double('prix');
             $table->string('numero_boutique');
+            $table->boolean('statut_boutique');
+
             $table->timestamps();
         });
     }

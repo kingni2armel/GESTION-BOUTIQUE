@@ -67,6 +67,14 @@
                                                                               <a href="{{route('GETPAGEUPDATEBOUTIQUE',['id'=>$infoboutiques->id])}}"> <i  style =" color:green"class="mdi mdi-marker"></i> </a>
 
                                                                           </div>
+
+                                                                          @if ($infoboutiques->statut_client == 0)
+                                                                          <div class="col-sm-6 col-md-4 col-lg-3">
+                                                                            <a href="{{route('GETPAGEUPDATEPROPRIETAIRE',['id'=>$infoboutiques->id])}}"> <i  style =" color:green"class="mdi mdi-marker"></i> </a>
+
+                                                                        </div>
+                                                                              
+                                                                          @endif
                                                                     </div>
                                                             </td>
                                                     </tr>

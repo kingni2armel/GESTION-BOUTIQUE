@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MODIFIER LA  BOUTIQUE</title>
+    <title>MODIFIER LE PROPRITAIRE</title>
 </head>
 <body>
         @include('layout.header')
@@ -15,7 +15,7 @@
                     <div class="col-12 grid-margin stretch-card" style="height: 450px !important">
                         <div class="card">
                           <div class="card-body">
-                            <h4 class="card-title">Modifier la boutique</h4>
+                            <h4 class="card-title">Modifier le proprietaire</h4>
 
 
                             @if($errors->any())
@@ -40,18 +40,20 @@
                     @endif
                                     @foreach ($boutique as $boutiques )
                                     
-                                                        <form class="forms-sample" action="{{route('UPDATEBOUTIQUE',['id'=>$id=$boutiques->id])}}" method="post">
+                                                        <form class="forms-sample" action="{{route('UPDATEPROPRIETAIRE',['id'=>$id=$boutiques->id])}}" method="post">
 
                                                             @csrf
                                                             <div class="form-group">
-                                                                <label for="exampleInputName1">Numero</label>
-                                                                <input type="text" name = "numeroupdate" class="form-control" id="exampleInputName1" value="{{$boutiques->numero_boutique}}">
+                                                                <label for="exampleInputName1">Nouveau proprietaire</label>
+
+                                                                <select name="nouveau"  class ="form-control"id="">
+                                                                        @foreach ($listeclients as $item )
+                                                                                    <option value="{{$item->id}}">{{$item->nom}} {{$item->prenom}}</option>
+                                                                        @endforeach
+                                                                </select>
                                                             </div>
                             
-                                                            <div class="form-group">
-                                                                <label for="exampleInputName1">Prix</label>
-                                                                <input type="number" name = "prixupdate" class="form-control" id="exampleInputName1" value="{{$boutiques->prix}}">
-                                                            </div>
+                                                           
                                                     
                                                      
                                                         

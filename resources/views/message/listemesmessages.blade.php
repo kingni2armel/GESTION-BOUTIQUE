@@ -31,6 +31,7 @@
                                         <th> Nom du destinateur </th>
                                         <th> Date d'envoie </th>
                                         <th> Message  </th>
+                                        <th> Opérations  </th>
                                        
                                       </tr>
                                     </thead>

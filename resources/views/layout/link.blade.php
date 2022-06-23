@@ -26,3 +26,4 @@
 <script src="{{url('assets/assets/js/misc.js')}}"></script>
 <script src="{{url('assets/assets/js/settings.js')}}"></script>
 <script src="{{url('assets/assets/js/todolist.js')}}"></script>
+<script src="{{url('assets/assets/js/prints.js')}}"></script>

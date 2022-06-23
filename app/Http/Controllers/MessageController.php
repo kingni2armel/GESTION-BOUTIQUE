@@ -38,8 +38,6 @@ class MessageController extends Controller
     {
             $today = Carbon::today();
             $id = auth()->user()->id;
-
-
             $request->validate([
                 'message'=>['required','min:1','max:500'],
                 'destinataire'=>['required'],

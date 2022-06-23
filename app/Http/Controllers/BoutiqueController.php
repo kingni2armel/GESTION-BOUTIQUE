@@ -18,6 +18,7 @@ class BoutiqueController extends Controller
         $infoclient = DB::table('users')
         ->join('clients','users.id','=','clients.user_id')
         ->select('users.nom','users.prenom','clients.id')
+        ->where('clients.statut_client',1)
         ->get();
         return view('boutique.addboutique',
         ['infoclient'=>$infoclient]
@@ -37,7 +38,8 @@ class BoutiqueController extends Controller
             $boutique  = Boutique::create([
                 'client_id'=>$request->client,
                 'numero_boutique'=>$request->numero,
-                'prix'=>$request->prix
+                'prix'=>$request->prix,
+                'statut_boutique'=>1
             ]);
             session()->flash('notification.message','Boutique crée avec success');
             session()->flash('notification.type','success');
@@ -53,9 +55,12 @@ class BoutiqueController extends Controller
         $numero=1;
         $infoboutique = DB::table('clients')
         ->join('boutiques','clients.id','=','boutiques.client_id')
-        ->join('utilisateurs','utilisateurs.id','clients.user_id')
-        ->select('utilisateurs.nom','utilisateurs.prenom','clients.id','boutiques.prix','boutiques.id','boutiques.numero_boutique')
+        ->join('users','users.id','clients.user_id')
+        ->select('users.nom','users.prenom','clients.id','boutiques.prix','boutiques.id','boutiques.numero_boutique','clients.statut_client')
         ->get();
+        
+  
+    //   /  die($infoboutique);
 
      //   die($infoboutique);
         return view('boutique.listeboutique',[
@@ -113,10 +118,56 @@ class BoutiqueController extends Controller
 
     {
         $boutique = Boutique::find($id);
-        $boutique->delete();
-        session()->flash('notification.message','Boutique supprimé avec success');
+        $boutique->update([
+            'statut_boutique'=>0
+        ]);
+        session()->flash('notification.message','Boutique désactivé avec success');
         session()->flash('notification.type','danger');
         return redirect()->route('GETLISTEBOUTIQUE');
 
     }
+
+
+    /*** function qui permet de modifier le  proprietaire d'une boutique */
+
+
+
+    public function GETPAGEUPDATEPROPRIETAIRE()
+    {
+        $id = $_GET['id'];
+        $listeclients = DB::table('users')
+        ->join('clients','users.id','=','clients.user_id')
+        ->select('clients.id','users.nom','users.prenom')
+        ->where('clients.statut_client',1)
+        ->orderBy('clients.id','DESC')
+        ->get();
+        
+        $boutique = Boutique::where('boutiques.id',$id)->get();
+        return view('boutique.updateproprietaire',[
+            'listeclients'=>$listeclients,
+            'boutique'=>$boutique
+        ]);
+
+    }
+
+    /** function update proprietaire  */
+
+
+    public function UPDATEPROPRIETAIRE(Request $request,$id)
+    {
+                $request->validate([
+                        'nouveau'=>['required']
+                ]);
+                $boutique  =  Boutique::find($id);
+
+                $boutique->update([
+                        'client_id'=>$request->nouveau
+                ]);
+
+                session()->flash('notification.message','Proprietaire modifié avec success');
+                session()->flash('notification.type','succces');
+                return redirect()->route('GETLISTEBOUTIQUE');
+
+    }
+
 }

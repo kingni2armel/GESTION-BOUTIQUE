@@ -33,145 +33,267 @@
                       </div>
                     </div>
                   </div>
+                                  @if (auth()->user()->role==='admin')
+                                  <div class="row">
+
+                                    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+                                        <div class="card">
+                                          <div class="card-body">
+                                            <div class="row">
+                                              <div class="col-9">
+                                                <div class="d-flex align-items-center align-self-start">
+                                                    <h3 class="mb-0">
+                                                        @if ($nombredeboutique->count()>0)
+                                                                {{$nombredeboutique->count()}}
+                                                                @else   
+                                                                0    
+                                                                
+                                                        @endif
+
+                                                  </h3>
+                                                  
+                                                </div>
+                                              </div>
+                                              <div class="col-3">
+                                                <div class="icon icon-box-success ">
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <h6 class="text-muted font-weight-normal">Nombre de boutique</h6>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+                                        <div class="card">
+                                          <div class="card-body">
+                                            <div class="row">
+                                              <div class="col-9">
+                                                <div class="d-flex align-items-center align-self-start">
+                                                  <h3 class="mb-0">
+                                                        @if ($nombredeclient->count()>0)
+                                                                {{$nombredeclient->count()}}
+                                                        @else   
+                                                        0     
+                                                                
+                                                        @endif
+
+                                                  </h3>
+                                                </div>
+                                              </div>
+                                              <div class="col-3">
+                                                <div class="icon icon-box-success ">
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <h6 class="text-muted font-weight-normal">Nombre de client</h6>
+                                          </div>
+                                        </div>
+                                      </div>
+
+
+                                      <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+                                        <div class="card">
+                                          <div class="card-body">
+                                            <div class="row">
+                                              <div class="col-9">
+                                                <div class="d-flex align-items-center align-self-start">
+                                                    <h3 class="mb-0">
+                                                        @if ($nombredemois->count()>0)
+                                                                {{$nombredemois->count()}}
+                                                         @else   
+                                                              0  
+                                                        @endif
+
+                                                  </h3>
+                                                </div>
+                                              </div>
+                                              <div class="col-3">
+                                                <div class="icon icon-box-success ">
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <h6 class="text-muted font-weight-normal">Nombre de mois</h6>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+                                        <div class="card">
+                                          <div class="card-body">
+                                            <div class="row">
+                                              <div class="col-9">
+                                                <div class="d-flex align-items-center align-self-start">
+                                                    <h3 class="mb-0">
+                                                        @if ($nombrepaiement->count()>0)
+                                                                {{$nombrepaiement->count()}}
+                                                                @else   
+                                                                0    
+                                                                
+                                                        @endif
+
+                                                  </h3>
+                                                </div>
+                                              </div>
+                                              <div class="col-3">
+                                                <div class="icon icon-box-success ">
+                                                  <span class="mdi mdi-arrow-top-right icon-item btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"></span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <h6 class="text-muted font-weight-normal">Nombre de paiements</h6>
+
+                                            
+                                         
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+                                        <div class="card">
+                                          <div class="card-body">
+                                            <div class="row">
+                                              <div class="col-9">
+                                                <div class="d-flex align-items-center align-self-start">
+                                                    <h3 class="mb-0">
+                                                       {{$prixtotalpaiement}} FCFA
+
+                                                  </h3>
+                                                  
+                                                </div>
+                                              </div>
+                                              <div class="col-3">
+                                                <div class="icon icon-box-success ">
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <h6 class="text-muted font-weight-normal">Prix total des paiements</h6>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                    </div>
+
+                                    @elseif (auth()->user()->role==='client')
                                     <div class="row">
 
-                                        <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
-                                            <div class="card">
-                                              <div class="card-body">
-                                                <div class="row">
-                                                  <div class="col-9">
-                                                    <div class="d-flex align-items-center align-self-start">
-                                                        <h3 class="mb-0">
-                                                            @if ($nombredeboutique->count()>0)
-                                                                    {{$nombredeboutique->count()}}
-                                                                    @else   
-                                                                    0    
+                                          <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+                                                  <div class="card">
+                                                        <div class="card-body">
+                                                              <div class="row">
+                                                                <div class="col-9">
+                                                                  <div class="d-flex align-items-center align-self-start">
+                                                                      <h3 class="mb-0">
+                                                                          @if ($mesboutique->count()>0)
+                                                                                  {{$mesboutique->count()}}
+                                                                                  @else   
+                                                                                  0    
+                                                                                  
+                                                                          @endif
+                  
+                                                                    </h3>
                                                                     
-                                                            @endif
-
-                                                      </h3>
-                                                      
+                                                                  </div>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                      <div class="icon icon-box-success ">
+                                                                      </div>
+                                                                </div>
+                                                          </div>
+                                                      <h6 class="text-muted font-weight-normal">Nombre de mes boutiques</h6>
                                                     </div>
-                                                  </div>
-                                                  <div class="col-3">
-                                                    <div class="icon icon-box-success ">
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                                <h6 class="text-muted font-weight-normal">Nombre de boutique</h6>
                                               </div>
-                                            </div>
-                                          </div>
-
-                                          <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
-                                            <div class="card">
-                                              <div class="card-body">
-                                                <div class="row">
-                                                  <div class="col-9">
-                                                    <div class="d-flex align-items-center align-self-start">
-                                                      <h3 class="mb-0">
-                                                            @if ($nombredeclient->count()>0)
-                                                                    {{$nombredeclient->count()}}
-                                                            @else   
-                                                            0     
-                                                                    
-                                                            @endif
-
-                                                      </h3>
-                                                    </div>
-                                                  </div>
-                                                  <div class="col-3">
-                                                    <div class="icon icon-box-success ">
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                                <h6 class="text-muted font-weight-normal">Nombre de client</h6>
-                                              </div>
-                                            </div>
-                                          </div>
-
-
-                                          <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
-                                            <div class="card">
-                                              <div class="card-body">
-                                                <div class="row">
-                                                  <div class="col-9">
-                                                    <div class="d-flex align-items-center align-self-start">
-                                                        <h3 class="mb-0">
-                                                            @if ($nombredemois->count()>0)
-                                                                    {{$nombredemois->count()}}
-                                                             @else   
-                                                                  0  
-                                                            @endif
-
-                                                      </h3>
-                                                    </div>
-                                                  </div>
-                                                  <div class="col-3">
-                                                    <div class="icon icon-box-success ">
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                                <h6 class="text-muted font-weight-normal">Nombre de mois</h6>
-                                              </div>
-                                            </div>
-                                          </div>
-
-                                          <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
-                                            <div class="card">
-                                              <div class="card-body">
-                                                <div class="row">
-                                                  <div class="col-9">
-                                                    <div class="d-flex align-items-center align-self-start">
-                                                        <h3 class="mb-0">
-                                                            @if ($nombrepaiement->count()>0)
-                                                                    {{$nombrepaiement->count()}}
-                                                                    @else   
-                                                                    0    
-                                                                    
-                                                            @endif
-
-                                                      </h3>
-                                                    </div>
-                                                  </div>
-                                                  <div class="col-3">
-                                                    <div class="icon icon-box-success ">
-                                                      <span class="mdi mdi-arrow-top-right icon-item btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"></span>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                                <h6 class="text-muted font-weight-normal">Nombre de paiements</h6>
-
-                                                
-                                             
-                                              </div>
-                                            </div>
-                                          </div>
-
-                                          <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
-                                            <div class="card">
-                                              <div class="card-body">
-                                                <div class="row">
-                                                  <div class="col-9">
-                                                    <div class="d-flex align-items-center align-self-start">
-                                                        <h3 class="mb-0">
-                                                           {{$prixtotalpaiement}} FCFA
-
-                                                      </h3>
-                                                      
-                                                    </div>
-                                                  </div>
-                                                  <div class="col-3">
-                                                    <div class="icon icon-box-success ">
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                                <h6 class="text-muted font-weight-normal">Prix total des paiements</h6>
-                                              </div>
-                                            </div>
-                                          </div>
-
                                         </div>
+
+                                                <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+                                                  <div class="card">
+                                                        <div class="card-body">
+                                                              <div class="row">
+                                                                <div class="col-9">
+                                                                  <div class="d-flex align-items-center align-self-start">
+                                                                      <h3 class="mb-0">
+                                                                          @if ($listmespaiements->count()>0)
+                                                                                  {{$listmespaiements->count()}}
+                                                                                  @else   
+                                                                                  0    
+                                                                                  
+                                                                          @endif
+                  
+                                                                    </h3>
+                                                                    
+                                                                  </div>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                      <div class="icon icon-box-success ">
+                                                                      </div>
+                                                                </div>
+                                                          </div>
+                                                      <h6 class="text-muted font-weight-normal">Nombre de mes paiements</h6>
+                                                    </div>
+                                              </div>
+                                        </div>
+
+                                        <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+                                          <div class="card">
+                                                <div class="card-body">
+                                                      <div class="row">
+                                                        <div class="col-9">
+                                                          <div class="d-flex align-items-center align-self-start">
+                                                              <h3 class="mb-0">
+                                                                  @if ($mesmessagesenvoye->count()>0)
+                                                                          {{$mesmessagesenvoye->count()}}
+                                                                          @else   
+                                                                          0    
+                                                                          
+                                                                  @endif
+          
+                                                            </h3>
+                                                            
+                                                          </div>
+                                                        </div>
+                                                        <div class="col-3">
+                                                              <div class="icon icon-box-success ">
+                                                              </div>
+                                                        </div>
+                                                  </div>
+                                              <h6 class="text-muted font-weight-normal">Nombre de mes messages envoyes</h6>
+                                            </div>
+                                      </div>
+                                </div>
+
+
+                                        <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+                                          <div class="card">
+                                                <div class="card-body">
+                                                      <div class="row">
+                                                        <div class="col-9">
+                                                          <div class="d-flex align-items-center align-self-start">
+                                                              <h3 class="mb-0">
+                                                                  @if ($mesmessagesrecu->count()>0)
+                                                                          {{$mesmessagesrecu->count()}}
+                                                                          @else   
+                                                                          0    
+                                                                          
+                                                                  @endif
+          
+                                                            </h3>
+                                                            
+                                                          </div>
+                                                        </div>
+                                                        <div class="col-3">
+                                                              <div class="icon icon-box-success ">
+                                                              </div>
+                                                        </div>
+                                                  </div>
+                                              <h6 class="text-muted font-weight-normal">Nombre de mes messages recu</h6>
+                                            </div>
+                                      </div>
+                                </div>
+                                    </div>
+
+                          
+                                      
+                                  @endif
 
 
                             <!-- Modal -->

@@ -15,6 +15,8 @@ use App\Models\Client;
 use App\Models\Boutique;
 use App\Models\Mois;
 use App\Models\Paiement;
+use App\Models\Message;
+
 
 
 class UserController extends Controller
@@ -28,23 +30,47 @@ class UserController extends Controller
 
     public function getdash()
     {
-        $nombredeclient = Client::All();
-        $nombredeboutique = Boutique::All();
-        $nombredemois= Mois::All();
-        $nombrepaiement= Paiement::All();
-        $prixtotalpaiement = Paiement::sum('prixp');
-        $sommepaiementjanvier = Paiement::where('mois_id',1)->sum('prixp');
-        $sommepaiementfevrier = Paiement::where('mois_id',2)->sum('prixp');
-        $sommepaiementmars = Paiement::where('mois_id',3)->sum('prixp');
-        $sommepaiementavril = Paiement::where('mois_id',4)->sum('prixp');
-        $sommepaiementmai =Paiement::where('mois_id',5)->sum('prixp');
-        $sommepaiementjuin =Paiement::where('mois_id',6)->sum('prixp');
-        $sommepaiementjuillet = Paiement::where('mois_id',7)->sum('prixp');
-        $sommepaiementaout = Paiement::where('mois_id',8)->sum('prixp');
-        $sommepaiementseptembre = Paiement::where('mois_id',9)->sum('prixp');
-        $sommepaiementoctobre = Paiement::where('mois_id',10)->sum('prixp');
-        $sommepaiementnovembre = Paiement::where('mois_id',11)->sum('prixp');
-        $sommepaiementdecembre= Paiement::where('mois_id',12)->sum('prixp');
+
+        if(auth()->user()->role === 'client')
+        {
+                    $id = auth()->user()->id;
+
+                    $user_client =  Client::where('clients.user_id',$id)->get();
+                    $user_client_id = $user_client->first();
+                    $idclient = $user_client_id->id;
+                    $mesboutique = Boutique::where('boutiques.client_id',$idclient)->get();
+                    $listmespaiements =  Paiement::where('paiements.client_id',$idclient)->get();
+           
+
+
+
+
+
+
+        }  else {
+                $mesboutique =0;
+                $listmespaiements=0;
+        }
+                $nombredeclient = Client::All();
+                $nombredeboutique = Boutique::All();
+                $nombredemois= Mois::All();
+                $nombrepaiement= Paiement::All();
+                $prixtotalpaiement = Paiement::sum('prixp');
+                $sommepaiementjanvier = Paiement::where('mois_id',1)->sum('prixp');
+                $sommepaiementfevrier = Paiement::where('mois_id',2)->sum('prixp');
+                $sommepaiementmars = Paiement::where('mois_id',3)->sum('prixp');
+                $sommepaiementavril = Paiement::where('mois_id',4)->sum('prixp');
+                $sommepaiementmai =Paiement::where('mois_id',5)->sum('prixp');
+                $sommepaiementjuin =Paiement::where('mois_id',6)->sum('prixp');
+                $sommepaiementjuillet = Paiement::where('mois_id',7)->sum('prixp');
+                $sommepaiementaout = Paiement::where('mois_id',8)->sum('prixp');
+                $sommepaiementseptembre = Paiement::where('mois_id',9)->sum('prixp');
+                $sommepaiementoctobre = Paiement::where('mois_id',10)->sum('prixp');
+                $sommepaiementnovembre = Paiement::where('mois_id',11)->sum('prixp');
+                $sommepaiementdecembre= Paiement::where('mois_id',12)->sum('prixp');
+                $iduser = auth()->user()->id;
+                $mesmessagesenvoye = Message::where('messages.destinateur_id',$iduser);
+                $mesmessagesrecu= Message::where('messages.destinataire_id',$iduser);
         return view('user.dash',[
             'nombredeclient'=>$nombredeclient,
             'nombredeboutique'=>$nombredeboutique,
@@ -62,7 +88,11 @@ class UserController extends Controller
             'sommepaiementoctobre'=>$sommepaiementoctobre,
             'sommepaiementnovembre'=>$sommepaiementnovembre,
             'sommepaiementdecembre'=>$sommepaiementdecembre,
-            'prixtotalpaiement'=>$prixtotalpaiement
+            'prixtotalpaiement'=>$prixtotalpaiement,
+            'mesboutique'=>$mesboutique,
+            'listmespaiements'=>$listmespaiements,
+            'mesmessagesenvoye'=>$mesmessagesenvoye,
+            'mesmessagesrecu'=>$mesmessagesrecu
 
         ]
 
@@ -199,6 +229,18 @@ class UserController extends Controller
                 session()->flash('notification.type','success');
                 return redirect()->route('GETPAGEUPDATEINFORMATION');
     
+        }
+
+        /*** function qui renvois la liste des users */
+
+
+        public function GETLISTEUSER()
+        {
+                    $user =  User::all();
+
+                    return view('user.listeuser',[
+                        'user'=>$user
+                    ]);
         }
 
 

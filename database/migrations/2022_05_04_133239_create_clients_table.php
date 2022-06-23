@@ -20,6 +20,8 @@ class CreateClientsTable extends Migration
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
+            $table->boolean('statut_client');
+
             $table->timestamps();
         });
     }
